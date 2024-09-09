@@ -1,33 +1,13 @@
 javascript:(function(){
-  const currentURL = window.location.href;
-  const currentProtocol = window.location.protocol;
-  const currentDomain = window.location.hostname;
+  var f = 'example.com';  // ドメイン1
+  var s = 'anotherdomain.com';  // ドメイン2
+  var l = location.href;  // 現在のURL
   
-  // 入れ替えたいドメイン
-  const domain1 = 'example.com';
-  const domain2 = 'anotherdomain.com';
-
-  // 入れ替え後のドメインとプロトコルを設定
-  let newProtocol, newDomain;
-  if (currentDomain === domain1) {
-    newDomain = domain2;
-    newProtocol = 'https:'; // domain1からdomain2に変更時はhttps
-  } else if (currentDomain === domain2) {
-    newDomain = domain1;
-    newProtocol = 'http:'; // domain2からdomain1に変更時はhttp
-  } else {
-    alert('このドメインは対象外です。');
-    return;
+  if (l.indexOf(f) !== -1) {
+    // ドメインがfの場合、プロトコルをhttpsにし、ドメインをsに変更
+    location.href = l.replace(f, s).replace(/^http:/, 'https:');
+  } else if (l.indexOf(s) !== -1) {
+    // ドメインがsの場合、プロトコルをhttpにし、ドメインをfに変更
+    location.href = l.replace(s, f).replace(/^https:/, 'http:');
   }
-
-  // プロトコルを変更
-  if (currentProtocol === 'http:') {
-    newProtocol = 'https:';
-  } else if (currentProtocol === 'https:') {
-    newProtocol = 'http:';
-  }
-
-  // 新しいURLを作成
-  const newURL = currentURL.replace(currentProtocol + '//' + currentDomain, newProtocol + '//' + newDomain);
-  window.location.href = newURL;
 })();
