@@ -4,6 +4,7 @@ javascript:(function() {
     var style = window.getComputedStyle(elements[i]);
     if (style.display === 'none') {
       elements[i].style.display = 'block';
+      elements[i].style.border = '2px solid red'; // 赤枠を追加
     }
   }
 })();
