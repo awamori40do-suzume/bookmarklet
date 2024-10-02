@@ -1,9 +1,15 @@
 javascript:(function() {
-  var elements = document.body.querySelectorAll('*'); 
-    var style = window.getComputedStyle(elements[i]);
-    if (style.display === 'none') {
-      elements[i].style.display = 'block';
-      elements[i].style.border = '2px solid red'; 
+  function showAndBorderNoneElements(parent) {
+    var elements = parent.querySelectorAll('*');
+    for (var i = 0; i < elements.length; i++) {
+      var style = window.getComputedStyle(elements[i]);
+      var hasHiddenClass = elements[i].classList.contains('util-sp-hidden') || elements[i].classList.contains('util-pc-hidden');      
+      if (style.display === 'none' || hasHiddenClass) {
+        elements[i].style.display = 'block'; 
+        elements[i].style.border = '2px solid red'; 
+        showAndBorderNoneElements(elements[i]);
+      }
     }
   }
+  showAndBorderNoneElements(document.body);
 })();
